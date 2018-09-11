@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<script>
+			function $(id) { return document.getElementById(id); }
+			function inverter(elemento) {
+				var stroke = elemento.getAttribute('stroke');
+				var fill = elemento.getAttribute('fill');
+				if (stroke == '#000' && fill == '#000') {
+					elemento.setAttribute('stroke', '#000');
+					elemento.setAttribute('fill', '#FFF');
+				} else if (stroke == '#000' && fill == '#FFF') {
+					elemento.setAttribute('stroke', '#000');
+					elemento.setAttribute('fill', '#000');
+				}
+			}
+			(function() {
+				var svg, btInverter;
+				function btInverterClick(event) {
+					var triangulos = svg.getElementsByTagName('polygon');
+					var length = triangulos.length;
+					for (var i = 0 ; i < length ; i++) {
+						var triangulo = triangulos[i];
+						inverter(triangulo);
+					}
+				}
+				function initEvents(event) {
+					btInverter.addEventListener('click', btInverterClick);
+				}
+				function init(event) {
+					svg = $('svg');
+					btInverter = $('bt-inverter');
+					initEvents(event);
+				}
+				window.addEventListener('load', init);
+			})();
+		</script>
+		<style>
+			svg {
+				padding: 10px;
+				border: 1px solid #CCC;
+				/* opacity: 0.5; */
+			}
+			#bt-inverter {
+				float: left;
+				margin-right: 10px;
+			}
+			@media print {
+				#bt-inverter {
+					display: none;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<svg id="svg" width="700" height="675">
+			<rect x="0" y="3" width="687" height="15" stroke-width="2" stroke="#000" fill="#000" />
+			<polygon points="10,56 140,56 75,455" stroke-width="2" stroke="#000" fill="#000" />
+			<polygon points="20,36 130,36 75,405" stroke-width="2" stroke="#000" fill="#FFF" />
+			<polygon points="190,56 330,56 260,655" stroke-width="2" stroke="#000" fill="#000" />
+			<polygon points="200,36 320,36 260,605" stroke-width="2" stroke="#000" fill="#FFF" />
+			<polygon points="380,56 510,56 445,455" stroke-width="2" stroke="#000" fill="#000" />
+			<polygon points="390,36 500,36 445,405" stroke-width="2" stroke="#000" fill="#FFF" />
+			<polygon points="555,56 675,56 620,350" stroke-width="2" stroke="#000" fill="#000" />
+			<polygon points="565,36 665,36 620,300" stroke-width="2" stroke="#000" fill="#FFF" />
+		</svg>
+		<input id="bt-inverter" type="button" value="inverter" />
+	</body>
+</html>
